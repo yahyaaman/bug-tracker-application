@@ -1,0 +1,25 @@
+<p><strong>Bug title: </strong> <%= @bug.title %></p>
+<p><strong>Bug description: </strong> <%= @bug.description %></p>
+<p><strong>Creator ID: </strong> <%= @bug.id %></p>
+<p><strong>Creator name: </strong> <%= @bug.user.name %></p>
+<p><strong>Creator role: </strong> <%= @bug.user.user_type %></p>
+<p><strong>Bug deadline: </strong> <%= @bug.deadline %></p>
+<p><strong>Bug type: </strong> <%= @bug.bug_type %></p>
+<p><strong>Bug status:</strong> <%= @bug.bug_status %></p>
+<p><strong>Project ID: </strong> <%= @bug.project_id %></p>
+<p><strong>Project Title: </strong> <%= @bug.project.title %></p>
+<% if @bug.developer_id %>
+    <p><strong>Developer ID: </strong><%= @bug.developer.id %></p>
+    <p><strong>Developer Name: </strong><%= @bug.developer.name %></p>
+<% end %>
+
+<% if @bug.screenshot? %>
+    <h2>Screenshot</h2>
+    <%= image_tag url_for(@bug.screenshot), style: "width:520px" %>
+<% end %>
+
+<br>
+<%= link_to "Edit", edit_bug_path(@bug) %>
+<%= button_to "Delete", @bug, method: :delete %>
+
+<%= link_to "All Bugs", bugs_path %>

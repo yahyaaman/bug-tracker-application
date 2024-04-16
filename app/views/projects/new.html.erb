@@ -1,0 +1,33 @@
+<%= form_with(model: @project) do |form| %>
+    <% if @project.errors.any? %>
+        <div style="color: red">
+            <h2><%= pluralize(@project.errors.count, "error") %> prohibited this project from being saved:</h2>
+
+            <ul>
+                <% @project.errors.each do |error| %>
+                <li><%= error.full_message %></li>
+                <% end %>
+            </ul>
+        </div>
+
+    <% end %>
+
+    <div>
+        <%= form.label :title %>
+        <%= form.text_field :title %>
+    </div>
+
+    <div> 
+        <%= form.label :user_ids, "Select developers/QAs working on this project" %><br>
+        <%= form.select :user_ids, User.developer_or_qa.map { |user| [user.name, user.id] }, {}, { multiple: true } %>
+    </div>
+  
+
+
+    <div>
+        <div>
+            <%= form.submit "Save" %>
+        </div>
+    </div>
+<% end %>
+  

@@ -1,0 +1,32 @@
+<h1>Edit Project</h1>
+
+<%= form_with(model: @project) do |form| %>
+  <% if @project.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(@project.errors.count, "error") %> prohibited this project from being saved:</h2>
+
+      <ul>
+        <% @project.errors.full_messages.each do |error| %>
+          <li><%= error %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div> 
+    <%= form.label :user_ids, "Select developers working on this project" %><br>
+    <% developer_and_qa_users = User.developer.or(User.qa) %>
+    <%= form.select :user_ids, developer_and_qa_users.map { |user| [user.name, user.id] }, {}, { multiple: true } %>
+  </div>
+
+  <div>
+    <%= form.submit "Update Project" %>
+  </div>
+<% end %>
+
+<%= link_to "Back", projects_path %>

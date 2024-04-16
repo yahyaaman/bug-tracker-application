@@ -1,0 +1,16 @@
+<h1>Bugs</h1>
+
+<% @bugs.each do |bug| %>
+    <p><strong>Bug Title: </strong><%= bug.title %></p>
+    <p><strong>Bug belonging to Project: </strong><%= bug.project.title %></p>
+    <p><strong>Created by: </strong><%= bug.user.name %></p>
+    <p><strong>Type: </strong><%= bug.bug_type %></p>
+    <p><strong>Status: </strong><%= bug.bug_status %></p>
+
+    <%= link_to "Show", bug_path(bug) %>
+    <%= link_to "Edit", edit_bug_path(bug) %>
+    <%= button_to "Delete", bug, method: :delete %>
+    <hr>
+<% end %>
+
+<p><%= link_to "New Bug", new_bug_path %></p>

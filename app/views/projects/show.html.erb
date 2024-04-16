@@ -1,0 +1,26 @@
+<p><strong>Project ID:</strong> <%= @project.id %></p>
+<p><strong>Project Title: </strong><%= @project.title %></p>
+<p><strong>Project Creator:</strong> <%= @project.user.name %></p>
+<p><strong>Project Creator Role: </strong><%= @project.user.user_type %></p>
+
+<h2>Developers and QAs working on this project</h2>
+<% @project.users.each do |user| %>
+    <p><%= user.name %></p>
+    <p><%= user.email %></p>
+    <hr>
+<% end %>
+
+<h2>Bugs</h2>
+<% @project.bugs.each do |bug| %>
+    <p>Bug title: <%= bug.title %></p>
+    <p>Bug type: <%= bug.bug_type %></p>
+    <p>Bug Status: <%= bug.bug_status %></p>
+    <%= link_to "Show", bug_path(bug) %>
+    <%= link_to "Edit", edit_bug_path(bug) %>
+    <hr>
+<% end %>
+
+<%= link_to "Edit this project", edit_project_path(@project) %><br>
+<%= link_to "Add new bug", new_bug_path(project_id: @project.id) %>
+<%= button_to "Delete", @project, method: :delete %>
+<%= link_to "My projects", projects_path %>

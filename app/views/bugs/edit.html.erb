@@ -1,0 +1,60 @@
+<%= form_with(model: @bug) do |form| %>
+    <% if @bug.errors.any? %>
+        <div style="color: red">
+            <h2><%= pluralize(@bug.errors.count, "error") %> prohibited this project from being saved:</h2>
+
+            <ul>
+                <% @bug.errors.each do |error| %>
+                <li><%= error.full_message %></li>
+                <% end %>
+            </ul>
+        </div>
+
+    <% end %>
+
+    <div>
+        <%= form.label :title %>
+        <%= form.text_field :title %>
+    </div>
+    
+    <div>
+        <%= form.label :description %>
+        <%= form.text_area :description %>
+    </div>
+
+    <div>
+        <%= form.label :bug_type %>
+        <%= form.select :bug_type, Bug.bug_types.keys.map { |type| [type.titleize, type] }, { prompt: 'Select type' }, disabled: true%>
+    </div>
+    <div>
+        <%= form.label :bug_status %>
+        <%= form.select :bug_status, Bug.status_options(@bug.bug_type).map { |status| [status.titleize, status] }, { prompt: 'Select status' }%>
+    </div>
+
+    <div>
+      <%= form.label :deadline %>
+      <%= form.datetime_field :deadline %>
+    </div>
+
+    <div>
+        <%= form.label :developer_id%>
+        <%= form.select :developer_id, options_for_select(User.developer.map { |user| [user.name, user.id] }, @bug.developer_id), { prompt: 'Select developer' } %>
+    </div>
+
+    <div>
+      <%= form.label :project_id %>
+      <%= form.select :project_id, Project.all.map { |project| [project.title, project.id] }, { prompt: 'Select project' }, disabled: true %>
+    </div>
+
+    <div>
+        <%= form.label :screenshot, "Screenshot(png or gif)" %><br />
+        <%= form.file_field :screenshot %>
+    </div>
+
+    <div>
+        <div>
+            <%= form.submit "Save" %>
+        </div>
+    </div>
+<% end %>
+  

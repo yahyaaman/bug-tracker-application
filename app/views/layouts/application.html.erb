@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>BugTrackerApp</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+
+  <div >
+    <% if current_user %>
+      <%= button_to "Logout", destroy_user_session_path, method: :delete %>
+      <%= link_to "Update", edit_user_registration_path %><br>
+      <p>Username: <%= current_user.name %></p>
+      <p>Role: <%= link_to current_user.user_type.titleize, pages_home_path %></p>
+    <% else %>
+      <%= link_to "Login", new_user_session_path %>
+      <%= link_to "Register", new_user_registration_path %>
+    <% end %>
+    <br>
+      </div>  
+  <p class="notice"><%= notice %></p>
+  <p class="alert"><%= alert %></p>
+
+    <%= yield %>
+  </body>
+</html>
